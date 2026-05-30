@@ -43,6 +43,7 @@ OTel env vars are wired in Helm values:
 
 - `otel.enabled`
 - `otel.serviceName`
+- `otel.resourceAttributes`
 - `otel.exporter.endpoint`
 - `otel.exporter.headers`
 
@@ -51,6 +52,7 @@ Example (in `values-kind.yaml`):
 ```yaml
 otel:
   enabled: true
+  resourceAttributes: deployment.environment=kind-dev
   exporter:
     endpoint: http://otel-collector.default.svc.cluster.local:4318/v1/traces
 ```
