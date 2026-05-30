@@ -1,0 +1,23 @@
+{{- if .Values.runOnceJob.enabled }}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ .Values.runOnceJob.name | quote }}
+spec:
+  backoffLimit: {{ .Values.runOnceJob.backoffLimit }}
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: ifq-job
+          image: {{ printf "%s:%s" .Values.image.repository .Values.image.tag | quote }}
+          imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
+          env:
+            - name: IFQ_RETRY_ATTEMPTS
+              value: {{ .Values.env.IFQ_RETRY_ATTEMPTS | quote }}
+            - name: IFQ_RETRY_DELAY_SECONDS
+              value: {{ .Values.env.IFQ_RETRY_DELAY_SECONDS | quote }}
+          envFrom:
+            - secretRef:
+                name: {{ .Values.secretName | quote }}
+{{- end }}

@@ -1,0 +1,23 @@
+name: ifq-download
+
+image:
+  repository: concierge-ifq-job
+  tag: latest
+  pullPolicy: IfNotPresent
+
+schedule: "0 5 * * *"
+concurrencyPolicy: Forbid
+successfulJobsHistoryLimit: 2
+failedJobsHistoryLimit: 5
+backoffLimit: 2
+
+secretName: ifq-job-secrets
+
+env:
+  IFQ_RETRY_ATTEMPTS: "3"
+  IFQ_RETRY_DELAY_SECONDS: "60"
+
+runOnceJob:
+  enabled: false
+  name: ifq-download-once
+  backoffLimit: 1
