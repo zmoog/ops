@@ -11,3 +11,4 @@ GitOps repo for personal workloads.
 ## Current apps
 
 - `ifq`: daily IFQ download CronJob (uploads PDF to Dropbox)
+- `otel-collector-gateway`: cluster-level OTel gateway (OTLP traces + k8s cluster metrics)

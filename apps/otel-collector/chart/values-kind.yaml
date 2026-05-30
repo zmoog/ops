@@ -1,0 +1,5 @@
+exporters:
+  otlp:
+    enabled: false
+    endpoint: ""
+    headers: {}

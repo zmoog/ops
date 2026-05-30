@@ -1,0 +1,60 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.name | quote }}
+data:
+  collector.yaml: |
+    receivers:
+      otlp:
+        protocols:
+          grpc:
+            endpoint: 0.0.0.0:{{ .Values.service.otlpGrpcPort }}
+          http:
+            endpoint: 0.0.0.0:{{ .Values.service.otlpHttpPort }}
+      k8s_cluster:
+        collection_interval: 60s
+
+    processors:
+      batch: {}
+
+{{- if .Values.exporters.otlp.enabled }}
+    exporters:
+      debug:
+        verbosity: normal
+      prometheus:
+        endpoint: 0.0.0.0:{{ .Values.service.prometheusPort }}
+      otlphttp:
+        endpoint: {{ .Values.exporters.otlp.endpoint | quote }}
+{{- if .Values.exporters.otlp.headers }}
+        headers:
+{{ toYaml .Values.exporters.otlp.headers | indent 10 }}
+{{- end }}
+
+    service:
+      pipelines:
+        traces:
+          receivers: [otlp]
+          processors: [batch]
+          exporters: [debug, otlphttp]
+        metrics:
+          receivers: [k8s_cluster]
+          processors: [batch]
+          exporters: [debug, prometheus, otlphttp]
+{{- else }}
+    exporters:
+      debug:
+        verbosity: normal
+      prometheus:
+        endpoint: 0.0.0.0:{{ .Values.service.prometheusPort }}
+
+    service:
+      pipelines:
+        traces:
+          receivers: [otlp]
+          processors: [batch]
+          exporters: [debug]
+        metrics:
+          receivers: [k8s_cluster]
+          processors: [batch]
+          exporters: [debug, prometheus]
+{{- end }}

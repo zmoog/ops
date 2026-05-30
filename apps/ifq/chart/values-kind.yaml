@@ -7,10 +7,8 @@ image:
 schedule: "0 5 * * *"
 
 otel:
-  enabled: false
+  enabled: true
   resourceAttributes: deployment.environment=dev
-  # Example collector endpoint:
-  # endpoint: http://otel-collector.default.svc.cluster.local:4318/v1/traces
   exporter:
-    endpoint: ""
+    endpoint: http://otel-collector-gateway.observability.svc.cluster.local:4318/v1/traces
     headers: ""

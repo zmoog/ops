@@ -1,0 +1,20 @@
+name: otel-collector-gateway
+
+image:
+  repository: otel/opentelemetry-collector-contrib
+  tag: 0.128.0
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  otlpGrpcPort: 4317
+  otlpHttpPort: 4318
+  prometheusPort: 8889
+
+resources: {}
+
+exporters:
+  otlp:
+    enabled: false
+    endpoint: ""
+    headers: {}
