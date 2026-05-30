@@ -36,3 +36,21 @@ helm upgrade --install ifq apps/ifq/chart \
 kubectl --context kind-kind -n ifq create job ifq-download-now --from=cronjob/ifq-download
 kubectl --context kind-kind -n ifq logs -f job/ifq-download-now
 ```
+
+## Tracing settings
+
+OTel env vars are wired in Helm values:
+
+- `otel.enabled`
+- `otel.serviceName`
+- `otel.exporter.endpoint`
+- `otel.exporter.headers`
+
+Example (in `values-kind.yaml`):
+
+```yaml
+otel:
+  enabled: true
+  exporter:
+    endpoint: http://otel-collector.default.svc.cluster.local:4318/v1/traces
+```

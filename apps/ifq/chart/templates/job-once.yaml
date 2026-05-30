@@ -17,6 +17,18 @@ spec:
               value: {{ .Values.env.IFQ_RETRY_ATTEMPTS | quote }}
             - name: IFQ_RETRY_DELAY_SECONDS
               value: {{ .Values.env.IFQ_RETRY_DELAY_SECONDS | quote }}
+            - name: OTEL_ENABLED
+              value: {{ .Values.otel.enabled | quote }}
+            - name: OTEL_SERVICE_NAME
+              value: {{ .Values.otel.serviceName | quote }}
+            {{- if .Values.otel.exporter.endpoint }}
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: {{ .Values.otel.exporter.endpoint | quote }}
+            {{- end }}
+            {{- if .Values.otel.exporter.headers }}
+            - name: OTEL_EXPORTER_OTLP_HEADERS
+              value: {{ .Values.otel.exporter.headers | quote }}
+            {{- end }}
           envFrom:
             - secretRef:
                 name: {{ .Values.secretName | quote }}

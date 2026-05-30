@@ -5,3 +5,11 @@ image:
 
 # Keep default daily schedule for now.
 schedule: "0 5 * * *"
+
+otel:
+  enabled: false
+  # Example collector endpoint:
+  # endpoint: http://otel-collector.default.svc.cluster.local:4318/v1/traces
+  exporter:
+    endpoint: ""
+    headers: ""
