@@ -20,6 +20,7 @@ env:
 otel:
   enabled: false
   serviceName: ifq-job
+  resourceAttributes: ""
   exporter:
     endpoint: ""
     headers: ""
