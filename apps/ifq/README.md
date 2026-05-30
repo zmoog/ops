@@ -4,11 +4,12 @@ This deploys the IFQ downloader CronJob.
 
 ## Local test on Kind
 
-1) Build and load image (from the concierge-ifq-kind worktree):
+1) Build and load image (from `/Users/zmoog/code/zmoog/ifq-job/main`):
 
 ```bash
-docker build -f Dockerfile.ifq-job -t concierge-ifq-job:latest .
-kind load docker-image concierge-ifq-job:latest --name kind
+cd /Users/zmoog/code/zmoog/ifq-job/main
+docker build -t ghcr.io/zmoog/ifq-job:latest .
+kind load docker-image ghcr.io/zmoog/ifq-job:latest --name kind
 ```
 
 2) Create secret:

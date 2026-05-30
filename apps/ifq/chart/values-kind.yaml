@@ -1,5 +1,5 @@
 image:
-  repository: concierge-ifq-job
+  repository: ghcr.io/zmoog/ifq-job
   tag: latest
   pullPolicy: IfNotPresent
 
