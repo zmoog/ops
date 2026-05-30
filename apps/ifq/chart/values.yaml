@@ -17,6 +17,13 @@ env:
   IFQ_RETRY_ATTEMPTS: "3"
   IFQ_RETRY_DELAY_SECONDS: "60"
 
+otel:
+  enabled: false
+  serviceName: ifq-job
+  exporter:
+    endpoint: ""
+    headers: ""
+
 runOnceJob:
   enabled: false
   name: ifq-download-once
