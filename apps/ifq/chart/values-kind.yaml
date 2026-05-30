@@ -1,6 +1,6 @@
 image:
   repository: ghcr.io/zmoog/ifq-job
-  tag: latest
+  tag: sha-23cef62
   pullPolicy: IfNotPresent
 
 # Keep default daily schedule for now.
