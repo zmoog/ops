@@ -2,7 +2,7 @@ name: otel-collector-gateway
 
 image:
   repository: otel/opentelemetry-collector-contrib
-  tag: 0.128.0
+  tag: 0.153.0
   pullPolicy: IfNotPresent
 
 service:
@@ -13,8 +13,12 @@ service:
 
 resources: {}
 
+backend:
+  enabled: false
+  secretName: otel-backend
+
 exporters:
   otlp:
-    enabled: false
-    endpoint: ""
-    headers: {}
+    # Export all telemetry to remote OTLP backend
+    endpointEnvVar: OTEL_BACKEND_OTLP_ENDPOINT
+    authHeaderEnvVar: OTEL_BACKEND_OTLP_AUTH_HEADER

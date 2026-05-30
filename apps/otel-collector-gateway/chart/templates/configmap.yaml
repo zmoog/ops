@@ -17,17 +17,17 @@ data:
     processors:
       batch: {}
 
-{{- if .Values.exporters.otlp.enabled }}
     exporters:
-      debug:
-        verbosity: normal
+{{- if not .Values.backend.enabled }}
+      nop: {}
+{{- end }}
       prometheus:
         endpoint: 0.0.0.0:{{ .Values.service.prometheusPort }}
+{{- if .Values.backend.enabled }}
       otlphttp:
-        endpoint: {{ .Values.exporters.otlp.endpoint | quote }}
-{{- if .Values.exporters.otlp.headers }}
+        endpoint: ${env:{{ .Values.exporters.otlp.endpointEnvVar }}}
         headers:
-{{ toYaml .Values.exporters.otlp.headers | indent 10 }}
+          Authorization: ${env:{{ .Values.exporters.otlp.authHeaderEnvVar }}}
 {{- end }}
 
     service:
@@ -35,26 +35,16 @@ data:
         traces:
           receivers: [otlp]
           processors: [batch]
-          exporters: [debug, otlphttp]
-        metrics:
-          receivers: [k8s_cluster]
-          processors: [batch]
-          exporters: [debug, prometheus, otlphttp]
+{{- if .Values.backend.enabled }}
+          exporters: [otlphttp]
 {{- else }}
-    exporters:
-      debug:
-        verbosity: normal
-      prometheus:
-        endpoint: 0.0.0.0:{{ .Values.service.prometheusPort }}
-
-    service:
-      pipelines:
-        traces:
-          receivers: [otlp]
-          processors: [batch]
-          exporters: [debug]
+          exporters: [nop]
+{{- end }}
         metrics:
           receivers: [k8s_cluster]
           processors: [batch]
-          exporters: [debug, prometheus]
+{{- if .Values.backend.enabled }}
+          exporters: [prometheus, otlphttp]
+{{- else }}
+          exporters: [prometheus]
 {{- end }}

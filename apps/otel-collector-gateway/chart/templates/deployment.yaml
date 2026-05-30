@@ -18,6 +18,11 @@ spec:
           image: {{ printf "%s:%s" .Values.image.repository .Values.image.tag | quote }}
           imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
           args: ["--config=/conf/collector.yaml"]
+{{- if .Values.backend.enabled }}
+          envFrom:
+            - secretRef:
+                name: {{ .Values.backend.secretName | quote }}
+{{- end }}
           ports:
             - name: otlp-grpc
               containerPort: {{ .Values.service.otlpGrpcPort }}

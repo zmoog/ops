@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: git@github.com:zmoog/ops.git
     targetRevision: main
-    path: apps/otel-collector/chart
+    path: apps/otel-collector-gateway/chart
     helm:
       valueFiles:
         - values-kind.yaml
