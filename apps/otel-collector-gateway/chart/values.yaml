@@ -1,0 +1,24 @@
+name: otel-collector-gateway
+
+image:
+  repository: otel/opentelemetry-collector-contrib
+  tag: 0.153.0
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  otlpGrpcPort: 4317
+  otlpHttpPort: 4318
+  prometheusPort: 8889
+
+resources: {}
+
+backend:
+  enabled: false
+  secretName: otel-backend
+
+exporters:
+  otlp:
+    # Export all telemetry to remote OTLP backend
+    endpointEnvVar: OTEL_BACKEND_OTLP_ENDPOINT
+    authHeaderEnvVar: OTEL_BACKEND_OTLP_AUTH_HEADER

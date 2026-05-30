@@ -54,5 +54,5 @@ otel:
   enabled: true
   resourceAttributes: deployment.environment=dev
   exporter:
-    endpoint: http://otel-collector.default.svc.cluster.local:4318/v1/traces
+    endpoint: http://otel-collector-gateway.observability.svc.cluster.local:4318/v1/traces
 ```
