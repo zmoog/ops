@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ifq-kind
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: git@github.com:zmoog/ops.git
+    targetRevision: main
+    path: apps/ifq/chart
+    helm:
+      valueFiles:
+        - values-kind.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: ifq
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

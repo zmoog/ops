@@ -1,0 +1,7 @@
+image:
+  repository: concierge-ifq-job
+  tag: latest
+  pullPolicy: IfNotPresent
+
+# Keep default daily schedule for now.
+schedule: "0 5 * * *"
