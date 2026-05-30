@@ -52,7 +52,7 @@ Example (in `values-kind.yaml`):
 ```yaml
 otel:
   enabled: true
-  resourceAttributes: deployment.environment=kind-dev
+  resourceAttributes: deployment.environment=dev
   exporter:
     endpoint: http://otel-collector.default.svc.cluster.local:4318/v1/traces
 ```
