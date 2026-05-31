@@ -1,0 +1,44 @@
+image:
+  registry: ghcr.io/zmoog/collector
+  tag: latest@sha256:f4a6ed0880a01fa403c13ccba5a88bdda28d21ef7c5d50de0bc306127e85ef36
+
+secretName: home-telemetry-collector-secrets
+
+labels:
+  hardware_profile: general-purpose
+
+resources:
+  requests:
+    memory: "128Mi"
+    cpu: "100m"
+  limits:
+    memory: "512Mi"
+    cpu: "500m"
+
+elasticsearch:
+  endpointsEnvVar: ELASTICSEARCH_ENDPOINTS
+  apiKeyEnvVar: ELASTICSEARCH_API_KEY
+
+wavinsentio:
+  collection_interval: "1m"
+  endpoint: "https://blaze.wavinsentio.com/wavin.blaze.v1.BlazeDeviceService"
+  usernameEnvVar: WAVINSENTIO_USERNAME
+  passwordEnvVar: WAVINSENTIO_PASSWORD
+  web_api_key: "AIzaSyBlAtNI7-2jitPul9I-O4EZcT-n0sIay-g"
+
+zcsazzurro:
+  collection_interval: "5m"
+  things: []
+  # thing item shape:
+  # - name: p0
+  #   clientIdEnvVar: ZCS_P0_CLIENT_ID
+  #   authKeyEnvVar: ZCS_P0_AUTH_KEY
+  #   thingKeyEnvVar: ZCS_P0_THING_KEY
+
+toggl:
+  collection_interval: "5m"
+  apiTokenEnvVar: TOGGL_API_TOKEN
+
+telemetry:
+  log:
+    level: info

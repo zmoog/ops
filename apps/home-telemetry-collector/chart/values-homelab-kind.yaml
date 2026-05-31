@@ -1,0 +1,20 @@
+image:
+  registry: ghcr.io/zmoog/collector
+  tag: latest@sha256:f4a6ed0880a01fa403c13ccba5a88bdda28d21ef7c5d50de0bc306127e85ef36
+
+secretName: home-telemetry-collector-secrets
+
+telemetry:
+  log:
+    level: info
+
+zcsazzurro:
+  things:
+    - name: p0
+      clientIdEnvVar: ZCS_P0_CLIENT_ID
+      authKeyEnvVar: ZCS_P0_AUTH_KEY
+      thingKeyEnvVar: ZCS_P0_THING_KEY
+    - name: p2
+      clientIdEnvVar: ZCS_P2_CLIENT_ID
+      authKeyEnvVar: ZCS_P2_AUTH_KEY
+      thingKeyEnvVar: ZCS_P2_THING_KEY
