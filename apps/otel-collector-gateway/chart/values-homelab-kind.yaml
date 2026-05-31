@@ -1,0 +1,3 @@
+backend:
+  enabled: true
+  secretName: otel-backend

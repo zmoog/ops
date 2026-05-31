@@ -1,0 +1,13 @@
+image:
+  repository: ghcr.io/zmoog/ifq-job
+  tag: sha-23cef62
+  pullPolicy: IfNotPresent
+
+schedule: "0 5 * * *"
+
+otel:
+  enabled: true
+  resourceAttributes: deployment.environment=homelab-kind
+  exporter:
+    endpoint: http://otel-collector-gateway.observability.svc.cluster.local:4318/v1/traces
+    headers: ""
