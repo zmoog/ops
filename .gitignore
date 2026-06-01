@@ -1,3 +1,6 @@
 # Local secrets
 apps/**/secrets/*.yaml
 !apps/**/secrets/*.example.yaml
+
+# Bootstrap secret (applied manually, never committed)
+infrastructure/secret-store/azure-sp-secret.yaml

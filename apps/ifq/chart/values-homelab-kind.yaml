@@ -11,3 +11,6 @@ otel:
   exporter:
     endpoint: http://otel-collector-gateway.observability.svc.cluster.local:4318/v1/traces
     headers: ""
+
+externalSecret:
+  enabled: true
