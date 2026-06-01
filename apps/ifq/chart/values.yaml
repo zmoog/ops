@@ -29,3 +29,14 @@ runOnceJob:
   enabled: false
   name: ifq-download-once
   backoffLimit: 1
+
+# External Secrets Operator integration.
+# When enabled, an ExternalSecret is created that pulls secret values
+# from the configured ClusterSecretStore instead of requiring a
+# manually applied k8s Secret.
+externalSecret:
+  enabled: false
+  refreshInterval: 1h
+  secretStore:
+    name: azure-kv
+    kind: ClusterSecretStore
