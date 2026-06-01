@@ -7,7 +7,6 @@ GitOps repo for personal workloads.
 - `apps/<name>/chart`: Helm chart for one app
 - `apps/<name>/secrets`: local secret templates (`*.example.yaml` tracked)
 - `clusters/<cluster-name>`: cluster bootstrap and app-of-apps manifests
-- `argocd/applications`: standalone Argo CD `Application` manifests
 
 ## Current apps
 
