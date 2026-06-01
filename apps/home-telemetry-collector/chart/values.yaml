@@ -27,8 +27,8 @@ wavinsentio:
   web_api_key: "AIzaSyBlAtNI7-2jitPul9I-O4EZcT-n0sIay-g"
 
 shellycloud:
-  collection_interval: "5m"
-  request_delay: "500ms"
+  collection_interval: "1m"
+  request_delay: "1s"
   serverUrlEnvVar: SHELLY_SERVER_URL
   authKeyEnvVar: SHELLY_AUTH_KEY
 
