@@ -8,6 +8,9 @@ telemetry:
   log:
     level: info
 
+shellycloud:
+  collection_interval: "5m"
+
 zcsazzurro:
   things:
     - name: p0

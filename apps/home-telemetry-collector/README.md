@@ -3,6 +3,7 @@
 Collector for home telemetry and personal metrics:
 - solar/energy (`zcsazzurro`)
 - floor heating/cooling (`wavinsentio`)
+- Shelly cloud devices (`shellycloud`)
 - time tracking (`toggltrack`)
 
 ## Secrets
