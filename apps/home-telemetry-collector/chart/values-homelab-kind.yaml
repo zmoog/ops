@@ -9,7 +9,7 @@ telemetry:
     level: info
 
 shellycloud:
-  collection_interval: "5m"
+  collection_interval: "1m"
 
 zcsazzurro:
   things:
