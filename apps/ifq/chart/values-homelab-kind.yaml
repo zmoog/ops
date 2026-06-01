@@ -1,6 +1,6 @@
 image:
   repository: ghcr.io/zmoog/ifq-job
-  tag: sha-23cef62
+  tag: sha-be1b3db
   pullPolicy: IfNotPresent
 
 schedule: "0 5 * * *"
