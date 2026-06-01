@@ -16,6 +16,11 @@ data:
         username: ${env:{{ .Values.wavinsentio.usernameEnvVar }}}
         password: ${env:{{ .Values.wavinsentio.passwordEnvVar }}}
         web_api_key: {{ .Values.wavinsentio.web_api_key }}
+      shellycloud:
+        collection_interval: {{ .Values.shellycloud.collection_interval }}
+        server_url: ${env:{{ .Values.shellycloud.serverUrlEnvVar }}}
+        auth_key: ${env:{{ .Values.shellycloud.authKeyEnvVar }}}
+        request_delay: {{ .Values.shellycloud.request_delay }}
 {{- range .Values.zcsazzurro.things }}
       zcsazzurro/{{ .name }}:
         collection_interval: {{ $.Values.zcsazzurro.collection_interval }}
@@ -44,7 +49,7 @@ data:
           receivers: [toggltrack]
           exporters: [elasticsearch]
         metrics:
-          receivers: [wavinsentio{{- range .Values.zcsazzurro.things }}, zcsazzurro/{{ .name }}{{- end }}]
+          receivers: [wavinsentio, shellycloud{{- range .Values.zcsazzurro.things }}, zcsazzurro/{{ .name }}{{- end }}]
           exporters: [elasticsearch]
       telemetry:
         resource:
