@@ -1,0 +1,55 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: "{{ .Release.Name }}-collector-config"
+  namespace: {{ .Release.Namespace }}
+data:
+  collector-config.yaml: |
+    receivers:
+      toggltrack:
+        collection_interval: {{ .Values.toggl.collection_interval }}
+        api_token: ${env:{{ .Values.toggl.apiTokenEnvVar }}}
+      wavinsentio:
+        collection_interval: {{ .Values.wavinsentio.collection_interval }}
+        endpoint: {{ .Values.wavinsentio.endpoint }}
+        username: ${env:{{ .Values.wavinsentio.usernameEnvVar }}}
+        password: ${env:{{ .Values.wavinsentio.passwordEnvVar }}}
+        web_api_key: {{ .Values.wavinsentio.web_api_key }}
+{{- range .Values.zcsazzurro.things }}
+      zcsazzurro/{{ .name }}:
+        collection_interval: {{ $.Values.zcsazzurro.collection_interval }}
+        client_id: ${env:{{ .clientIdEnvVar }}}
+        auth_key: ${env:{{ .authKeyEnvVar }}}
+        thing_key: ${env:{{ .thingKeyEnvVar }}}
+{{- end }}
+    processors:
+      batch:
+
+    exporters:
+      elasticsearch:
+        endpoints: "${env:{{ .Values.elasticsearch.endpointsEnvVar }}}"
+        headers:
+          Authorization: "ApiKey ${env:{{ .Values.elasticsearch.apiKeyEnvVar }}}"
+
+    extensions:
+      health_check:
+        endpoint: :13133
+
+    service:
+      extensions:
+      - health_check
+      pipelines:
+        logs:
+          receivers: [toggltrack]
+          exporters: [elasticsearch]
+        metrics:
+          receivers: [wavinsentio{{- range .Values.zcsazzurro.things }}, zcsazzurro/{{ .name }}{{- end }}]
+          exporters: [elasticsearch]
+      telemetry:
+        resource:
+          service.name: "{{ .Release.Name }}"
+          service.version: "{{ .Chart.AppVersion }}"
+        logs:
+          level: {{ .Values.telemetry.log.level | default "info" }}
+          encoding: {{ .Values.telemetry.log.encoding | default "json" }}

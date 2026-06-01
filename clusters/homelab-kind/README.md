@@ -7,6 +7,7 @@ Kind cluster profile for LAN-hosted homelab services.
 - `ingress-nginx` (host ports 80/443)
 - `otel-collector-gateway`
 - `ifq`
+- `home-telemetry-collector`
 
 ## 1) Create Kind cluster
 
@@ -27,12 +28,15 @@ kubectl --context kind-homelab-kind apply -n argocd \
 ```bash
 kubectl --context kind-homelab-kind create ns ifq --dry-run=client -o yaml | kubectl apply -f -
 kubectl --context kind-homelab-kind create ns observability --dry-run=client -o yaml | kubectl apply -f -
+kubectl --context kind-homelab-kind create ns home-telemetry --dry-run=client -o yaml | kubectl apply -f -
 
 cp apps/ifq/secrets/ifq-secret.example.yaml apps/ifq/secrets/ifq-secret.yaml
 cp apps/otel-collector-gateway/secrets/backend.example.yaml apps/otel-collector-gateway/secrets/backend.yaml
-# edit both files, then apply:
+cp apps/home-telemetry-collector/secrets/collector-secret.example.yaml apps/home-telemetry-collector/secrets/collector-secret.yaml
+# edit all files, then apply:
 kubectl --context kind-homelab-kind apply -n ifq -f apps/ifq/secrets/ifq-secret.yaml
 kubectl --context kind-homelab-kind apply -n observability -f apps/otel-collector-gateway/secrets/backend.yaml
+kubectl --context kind-homelab-kind apply -n home-telemetry -f apps/home-telemetry-collector/secrets/collector-secret.yaml
 ```
 
 ## 4) Bootstrap app-of-apps
