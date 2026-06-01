@@ -1,6 +1,6 @@
 image:
   registry: ghcr.io/zmoog/collector
-  tag: latest@sha256:f4a6ed0880a01fa403c13ccba5a88bdda28d21ef7c5d50de0bc306127e85ef36
+  tag: latest@sha256:6494f21ecaa87d14ae462a188c4215a6ab9ab5ec224dc4776f06ac7e7268dec3
 
 secretName: home-telemetry-collector-secrets
 
