@@ -1,6 +1,6 @@
 image:
   registry: ghcr.io/zmoog/collector
-  tag: latest@sha-bc1f880
+  tag: sha-bc1f880
 
 secretName: home-telemetry-collector-secrets
 
