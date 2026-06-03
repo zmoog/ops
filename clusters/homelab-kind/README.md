@@ -8,6 +8,7 @@ Kind cluster profile for LAN-hosted homelab services.
 - `otel-collector-gateway`
 - `ifq`
 - `home-telemetry-collector`
+- `looter`
 
 ## 1) Create Kind cluster
 
