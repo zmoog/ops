@@ -1,0 +1,38 @@
+name: looter
+
+image:
+  repository: ghcr.io/zmoog/looter
+  tag: latest
+  pullPolicy: IfNotPresent
+
+replicaCount: 1
+
+service:
+  type: ClusterIP
+  otlpGrpcPort: 4317
+  otlpHttpPort: 4318
+  healthPort: 13133
+  pprofPort: 1777
+  zpagesPort: 55679
+
+resources:
+  requests:
+    cpu: 50m
+    memory: 128Mi
+  limits:
+    cpu: 500m
+    memory: 768Mi
+
+collector:
+  memoryLimiter:
+    checkInterval: 1s
+    limitMiB: 512
+    spikeLimitMiB: 128
+  batch:
+    timeout: 1s
+  debugExporter:
+    verbosity: normal
+  telemetry:
+    prometheus:
+      host: 127.0.0.1
+      port: 8889
