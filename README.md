@@ -13,7 +13,8 @@ GitOps repo for personal workloads.
 - `ifq`: daily IFQ download CronJob (uploads PDF to Dropbox)
 - `otel-collector-gateway`: cluster-level OTel gateway (OTLP traces + k8s cluster metrics)
 - `home-telemetry-collector`: collector for solar/HVAC/energy + toggl telemetry
+- `looter`: custom OpenTelemetry Collector distro for experimentation
 
 ## Clusters
 
-- `clusters/homelab-kind`: Kind-on-LAN setup with ingress-nginx, ifq, otel-collector-gateway, and home-telemetry-collector
+- `clusters/homelab-kind`: Kind-on-LAN setup with ingress-nginx, ifq, otel-collector-gateway, home-telemetry-collector, and looter
