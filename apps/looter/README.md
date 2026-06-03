@@ -7,12 +7,12 @@ Custom OpenTelemetry Collector distro for experimentation.
 
 ## homelab-kind
 
-Deployed into the `observability` namespace by Argo CD.
+Deployed into the `looter` namespace by Argo CD.
 
 Service endpoints inside the cluster:
 
-- OTLP gRPC: `looter.observability.svc.cluster.local:4317`
-- OTLP HTTP: `http://looter.observability.svc.cluster.local:4318`
-- Health check: `http://looter.observability.svc.cluster.local:13133/`
-- pprof: `http://looter.observability.svc.cluster.local:1777`
-- zPages: `http://looter.observability.svc.cluster.local:55679`
+- OTLP gRPC: `looter.looter.svc.cluster.local:4317`
+- OTLP HTTP: `http://looter.looter.svc.cluster.local:4318`
+- Health check: `http://looter.looter.svc.cluster.local:13133/`
+- pprof: `http://looter.looter.svc.cluster.local:1777`
+- zPages: `http://looter.looter.svc.cluster.local:55679`
