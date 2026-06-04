@@ -30,6 +30,7 @@ kubectl --context kind-homelab-kind apply -n argocd \
 kubectl --context kind-homelab-kind create ns ifq --dry-run=client -o yaml | kubectl apply -f -
 kubectl --context kind-homelab-kind create ns observability --dry-run=client -o yaml | kubectl apply -f -
 kubectl --context kind-homelab-kind create ns home-telemetry --dry-run=client -o yaml | kubectl apply -f -
+kubectl --context kind-homelab-kind create ns looter --dry-run=client -o yaml | kubectl apply -f -
 
 cp apps/ifq/secrets/ifq-secret.example.yaml apps/ifq/secrets/ifq-secret.yaml
 cp apps/otel-collector-gateway/secrets/backend.example.yaml apps/otel-collector-gateway/secrets/backend.yaml
@@ -39,6 +40,8 @@ kubectl --context kind-homelab-kind apply -n ifq -f apps/ifq/secrets/ifq-secret.
 kubectl --context kind-homelab-kind apply -n observability -f apps/otel-collector-gateway/secrets/backend.yaml
 kubectl --context kind-homelab-kind apply -n home-telemetry -f apps/home-telemetry-collector/secrets/collector-secret.yaml
 ```
+
+`looter` uses External Secrets Operator in `homelab-kind`; create Azure Key Vault secret `discord-bot-token` for the Discord bot token. For manual setup, see `apps/looter/README.md`.
 
 ## 4) Bootstrap app-of-apps
 

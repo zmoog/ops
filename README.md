@@ -13,7 +13,7 @@ GitOps repo for personal workloads.
 - `ifq`: daily IFQ download CronJob (uploads PDF to Dropbox)
 - `otel-collector-gateway`: cluster-level OTel gateway (OTLP traces + k8s cluster metrics)
 - `home-telemetry-collector`: collector for solar/HVAC/energy + toggl telemetry
-- `looter`: custom OpenTelemetry Collector distro for experimentation
+- `looter`: custom OpenTelemetry Collector distro for experimentation, including Discord log ingestion
 
 ## Clusters
 

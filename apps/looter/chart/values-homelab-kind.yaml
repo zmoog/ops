@@ -1,2 +1,8 @@
 image:
-  tag: sha-386c121
+  tag: sha-e3f730b
+
+discord:
+  enabled: true
+
+externalSecret:
+  enabled: true
