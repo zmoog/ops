@@ -11,6 +11,15 @@ The Discord receiver is enabled for `homelab-kind` and requires a Discord bot to
 
 For `homelab-kind`, the chart creates an ExternalSecret that reads the token from Azure Key Vault key `discord-bot-token`.
 
+Add or update that Key Vault secret with the Azure CLI:
+
+```bash
+az keyvault secret set \
+  --vault-name zmoog-homelab-kv \
+  --name discord-bot-token \
+  --value "$DISCORD_BOT_TOKEN"
+```
+
 For manual setup, copy and edit the example secret:
 
 ```bash
