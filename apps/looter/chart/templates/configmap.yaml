@@ -11,6 +11,10 @@ data:
         endpoint: 0.0.0.0:{{ .Values.service.pprofPort }}
       zpages:
         endpoint: 0.0.0.0:{{ .Values.service.zpagesPort }}
+{{- if .Values.discord.enabled }}
+      discord:
+        bot_token: ${env:{{ .Values.discord.botTokenEnvVar }}}
+{{- end }}
 
     receivers:
       otlp:
@@ -19,6 +23,11 @@ data:
             endpoint: 0.0.0.0:{{ .Values.service.otlpGrpcPort }}
           http:
             endpoint: 0.0.0.0:{{ .Values.service.otlpHttpPort }}
+{{- if .Values.discord.enabled }}
+      discord:
+        guild_ids: {{ .Values.discord.guildIds | toJson }}
+        channel_ids: {{ .Values.discord.channelIds | toJson }}
+{{- end }}
 
     processors:
       memory_limiter:
@@ -33,7 +42,7 @@ data:
         verbosity: {{ .Values.collector.debugExporter.verbosity }}
 
     service:
-      extensions: [health_check, pprof, zpages]
+      extensions: [health_check, pprof, zpages{{- if .Values.discord.enabled }}, discord{{- end }}]
       pipelines:
         traces:
           receivers: [otlp]
@@ -44,7 +53,7 @@ data:
           processors: [memory_limiter, batch]
           exporters: [debug]
         logs:
-          receivers: [otlp]
+          receivers: [otlp{{- if .Values.discord.enabled }}, discord{{- end }}]
           processors: [memory_limiter, batch]
           exporters: [debug]
       telemetry:

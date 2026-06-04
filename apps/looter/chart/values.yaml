@@ -7,6 +7,8 @@ image:
 
 replicaCount: 1
 
+secretName: looter-secrets
+
 service:
   type: ClusterIP
   otlpGrpcPort: 4317
@@ -36,3 +38,23 @@ collector:
     prometheus:
       host: 127.0.0.1
       port: 8889
+
+discord:
+  enabled: false
+  botTokenEnvVar: DISCORD_BOT_TOKEN
+  secretKey: DISCORD_BOT_TOKEN
+  guildIds: []
+  channelIds: []
+
+# External Secrets Operator integration.
+# When enabled, an ExternalSecret is created that pulls the Discord bot token
+# from the configured ClusterSecretStore instead of requiring a manually
+# applied k8s Secret.
+externalSecret:
+  enabled: false
+  refreshInterval: 1h
+  secretStore:
+    name: azure-kv
+    kind: ClusterSecretStore
+  remoteRefs:
+    discordBotToken: discord-bot-token

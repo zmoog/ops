@@ -26,6 +26,14 @@ spec:
           image: {{ printf "%s:%s" .Values.image.repository .Values.image.tag | quote }}
           imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
           args: ["--config=/conf/collector.yaml"]
+{{- if .Values.discord.enabled }}
+          env:
+            - name: {{ .Values.discord.botTokenEnvVar | quote }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secretName | quote }}
+                  key: {{ .Values.discord.secretKey | quote }}
+{{- end }}
           ports:
             - name: otlp-grpc
               containerPort: {{ .Values.service.otlpGrpcPort }}
