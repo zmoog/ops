@@ -2,7 +2,7 @@ name: ifq-download
 
 image:
   repository: ghcr.io/zmoog/ifq-job
-  tag: latest
+  tag: sha-46319ab
   pullPolicy: IfNotPresent
 
 schedule: "0 5 * * *"
