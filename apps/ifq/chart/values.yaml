@@ -16,6 +16,7 @@ secretName: ifq-job-secrets
 env:
   IFQ_RETRY_ATTEMPTS: "3"
   IFQ_RETRY_DELAY_SECONDS: "60"
+  DROPBOX_KEEP_DAYS: "7"
 
 otel:
   enabled: false
