@@ -2,7 +2,7 @@ name: ifq-download
 
 image:
   repository: ghcr.io/zmoog/ifq-job
-  tag: latest
+  tag: sha-46319ab
   pullPolicy: IfNotPresent
 
 schedule: "0 5 * * *"
@@ -16,6 +16,7 @@ secretName: ifq-job-secrets
 env:
   IFQ_RETRY_ATTEMPTS: "3"
   IFQ_RETRY_DELAY_SECONDS: "60"
+  DROPBOX_KEEP_DAYS: "7"
 
 otel:
   enabled: false

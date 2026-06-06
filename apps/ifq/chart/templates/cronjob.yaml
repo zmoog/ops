@@ -22,6 +22,8 @@ spec:
                   value: {{ .Values.env.IFQ_RETRY_ATTEMPTS | quote }}
                 - name: IFQ_RETRY_DELAY_SECONDS
                   value: {{ .Values.env.IFQ_RETRY_DELAY_SECONDS | quote }}
+                - name: DROPBOX_KEEP_DAYS
+                  value: {{ .Values.env.DROPBOX_KEEP_DAYS | quote }}
                 - name: OTEL_ENABLED
                   value: {{ .Values.otel.enabled | quote }}
                 - name: OTEL_SERVICE_NAME
