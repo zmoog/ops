@@ -53,4 +53,5 @@ telemetry:
     otlp:
       endpoint: "otel-collector-gateway.observability.svc.cluster.local:4317"
       insecure: true
+      # 10 seconds in nanoseconds (collector expects an integer duration here).
       timeout: 10000000000
