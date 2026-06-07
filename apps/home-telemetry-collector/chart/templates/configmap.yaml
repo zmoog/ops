@@ -67,7 +67,7 @@ data:
                     protocol: grpc
                     endpoint: {{ .Values.telemetry.export.otlp.endpoint | quote }}
                     insecure: {{ .Values.telemetry.export.otlp.insecure }}
-                    timeout: {{ .Values.telemetry.export.otlp.timeout | quote }}
+                    timeout: {{ .Values.telemetry.export.otlp.timeout | int64 }}
         traces:
           processors:
             - batch:
@@ -76,5 +76,5 @@ data:
                     protocol: grpc
                     endpoint: {{ .Values.telemetry.export.otlp.endpoint | quote }}
                     insecure: {{ .Values.telemetry.export.otlp.insecure }}
-                    timeout: {{ .Values.telemetry.export.otlp.timeout | quote }}
+                    timeout: {{ .Values.telemetry.export.otlp.timeout | int64 }}
 {{- end }}
