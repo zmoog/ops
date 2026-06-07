@@ -48,3 +48,8 @@ toggl:
 telemetry:
   log:
     level: info
+  export:
+    enabled: false
+    otlp:
+      endpoint: "otel-collector-gateway.observability.svc.cluster.local:4317"
+      insecure: true

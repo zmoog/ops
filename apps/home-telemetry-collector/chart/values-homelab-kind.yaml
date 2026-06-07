@@ -5,6 +5,8 @@ image:
 secretName: home-telemetry-collector-secrets
 
 telemetry:
+  export:
+    enabled: true
   log:
     level: info
 

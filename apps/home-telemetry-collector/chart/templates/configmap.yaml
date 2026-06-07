@@ -58,3 +58,21 @@ data:
         logs:
           level: {{ .Values.telemetry.log.level | default "info" }}
           encoding: {{ .Values.telemetry.log.encoding | default "json" }}
+{{- if .Values.telemetry.export.enabled }}
+        metrics:
+          readers:
+            - periodic:
+                exporter:
+                  otlp:
+                    protocol: grpc
+                    endpoint: {{ .Values.telemetry.export.otlp.endpoint | quote }}
+                    insecure: {{ .Values.telemetry.export.otlp.insecure }}
+        traces:
+          processors:
+            - batch:
+                exporter:
+                  otlp:
+                    protocol: grpc
+                    endpoint: {{ .Values.telemetry.export.otlp.endpoint | quote }}
+                    insecure: {{ .Values.telemetry.export.otlp.insecure }}
+{{- end }}
