@@ -1,0 +1,49 @@
+name: hermes
+
+# Bootstrap keeps the pod available for interactive ChatGPT authentication.
+# Switch to gateway only after configuring auth and discord.allowedUsers.
+mode: bootstrap
+replicaCount: 1
+
+image:
+  repository: nousresearch/hermes-agent
+  tag: v0.23.1
+  # Multi-arch index verified to include linux/arm64 and linux/amd64.
+  digest: sha256:276d44685c65c0cb2a25f190b63c65c8906f9dc76486fb1c05ae71b5826bda08
+  pullPolicy: IfNotPresent
+
+secretName: hermes-secrets
+
+persistence:
+  claimName: hermes-data
+  storageClassName: standard
+  # local-path does NOT enforce this as a filesystem size quota.
+  size: 2Gi
+
+# Starting budgets for a lightweight trial, not measured requirements.
+resources:
+  requests:
+    cpu: 100m
+    memory: 512Mi
+    ephemeral-storage: 256Mi
+  limits:
+    cpu: "1"
+    memory: 1536Mi
+    ephemeral-storage: 2Gi
+
+discord:
+  # Comma-separated numeric Discord user IDs. Required in gateway mode.
+  allowedUsers: ""
+  # Optional dedicated mention-free channels. Keep allowedUsers restricted.
+  freeResponseChannels: ""
+
+# If disabled, provision secretName with DISCORD_BOT_TOKEN yourself.
+# The bootstrap pod does not require this Secret to exist.
+externalSecret:
+  enabled: false
+  refreshInterval: 1h
+  secretStore:
+    name: azure-kv
+    kind: ClusterSecretStore
+  remoteRefs:
+    discordBotToken: hermes-discord-bot-token

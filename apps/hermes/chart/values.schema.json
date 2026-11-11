@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["name", "mode", "replicaCount", "image", "secretName", "persistence", "resources", "discord", "externalSecret"],
+  "properties": {
+    "name": {"type": "string", "maxLength": 63, "pattern": "^[a-z]([-a-z0-9]*[a-z0-9])?$"},
+    "mode": {"type": "string", "enum": ["bootstrap", "gateway"]},
+    "replicaCount": {"type": "integer", "enum": [1]},
+    "image": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["repository", "tag", "digest", "pullPolicy"],
+      "properties": {
+        "repository": {"type": "string", "minLength": 1},
+        "tag": {"type": "string", "minLength": 1},
+        "digest": {"type": "string", "pattern": "^sha256:[a-f0-9]{64}$"},
+        "pullPolicy": {"type": "string", "enum": ["Always", "IfNotPresent", "Never"]}
+      }
+    },
+    "secretName": {"type": "string", "minLength": 1, "maxLength": 63, "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"},
+    "persistence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["claimName", "storageClassName", "size"],
+      "properties": {
+        "claimName": {"type": "string", "minLength": 1, "maxLength": 63, "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"},
+        "storageClassName": {"type": "string", "minLength": 1},
+        "size": {"type": "string", "minLength": 1}
+      }
+    },
+    "resources": {
+      "type": "object",
+      "required": ["requests", "limits"],
+      "properties": {
+        "requests": {"type": "object", "required": ["cpu", "memory", "ephemeral-storage"]},
+        "limits": {"type": "object", "required": ["cpu", "memory", "ephemeral-storage"]}
+      }
+    },
+    "discord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["allowedUsers", "freeResponseChannels"],
+      "properties": {
+        "allowedUsers": {"type": "string", "pattern": "^([0-9]+(,[0-9]+)*)?$"},
+        "freeResponseChannels": {"type": "string", "pattern": "^([0-9]+(,[0-9]+)*)?$"}
+      }
+    },
+    "externalSecret": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["enabled", "refreshInterval", "secretStore", "remoteRefs"],
+      "properties": {
+        "enabled": {"type": "boolean"},
+        "refreshInterval": {"type": "string", "minLength": 1},
+        "secretStore": {
+          "type": "object",
+          "required": ["name", "kind"],
+          "properties": {
+            "name": {"type": "string", "minLength": 1},
+            "kind": {"type": "string", "enum": ["ClusterSecretStore", "SecretStore"]}
+          }
+        },
+        "remoteRefs": {
+          "type": "object",
+          "required": ["discordBotToken"],
+          "properties": {"discordBotToken": {"type": "string", "minLength": 1}}
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"mode": {"const": "gateway"}}},
+      "then": {"properties": {"discord": {"properties": {"allowedUsers": {"minLength": 1}}}}}
+    }
+  ]
+}
