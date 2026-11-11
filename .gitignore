@@ -4,3 +4,6 @@ apps/**/secrets/*.yaml
 
 # Bootstrap secret (applied manually, never committed)
 infrastructure/secret-store/azure-sp-secret.yaml
+
+# Python chart-test caches
+__pycache__/

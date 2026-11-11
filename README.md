@@ -14,7 +14,8 @@ GitOps repo for personal workloads.
 - `otel-collector-gateway`: cluster-level OTel gateway (OTLP traces + k8s cluster metrics)
 - `home-telemetry-collector`: collector for solar/HVAC/energy + toggl telemetry
 - `looter`: custom OpenTelemetry Collector distro for experimentation, including Discord log ingestion
+- `hermes`: [Hermes Agent Discord gateway](apps/hermes/README.md), staged subscription-auth bootstrap with persistent state
 
 ## Clusters
 
-- `clusters/homelab-kind`: Kind-on-LAN setup with ingress-nginx, ifq, otel-collector-gateway, home-telemetry-collector, and looter
+- `clusters/homelab-kind`: Kind-on-LAN setup with ingress-nginx, ifq, otel-collector-gateway, home-telemetry-collector, looter, and hermes

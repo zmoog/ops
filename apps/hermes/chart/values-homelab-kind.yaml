@@ -1,0 +1,8 @@
+# First sync is intentionally inert: authenticate before enabling the gateway.
+mode: bootstrap
+
+externalSecret:
+  enabled: true
+
+discord:
+  allowedUsers: "472444297300541461"

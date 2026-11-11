@@ -9,6 +9,11 @@ Kind cluster profile for LAN-hosted homelab services.
 - `ifq`
 - `home-telemetry-collector`
 - `looter`
+- `hermes` (starts in bootstrap mode; see [authentication and Discord setup](../../apps/hermes/README.md))
+
+These bootstrap commands are for a **new** cluster. Do not recreate an existing
+cluster to add Hermes; the root application discovers its child application.
+Hermes uses a protected local-path PVC, but still needs off-device backups.
 
 ## 1) Create Kind cluster
 
@@ -42,6 +47,12 @@ kubectl --context kind-homelab-kind apply -n home-telemetry -f apps/home-telemet
 ```
 
 `looter` uses External Secrets Operator in `homelab-kind`; create Azure Key Vault secret `discord-bot-token` for the Discord bot token. For manual setup, see `apps/looter/README.md`.
+
+`hermes` uses a **separate bot** and Azure Key Vault secret
+`hermes-discord-bot-token`. Its ChatGPT OAuth credentials are created
+interactively on its writable PVC, not in Git or a read-only Secret.
+Follow [the Hermes setup guide](../../apps/hermes/README.md) before switching it
+from bootstrap to gateway mode.
 
 ## 4) Bootstrap app-of-apps
 
