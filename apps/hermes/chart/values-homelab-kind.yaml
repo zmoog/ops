@@ -1,5 +1,5 @@
-# First sync is intentionally inert: authenticate before enabling the gateway.
-mode: bootstrap
+# Provider authentication and minimal local tools were configured in bootstrap.
+mode: gateway
 
 externalSecret:
   enabled: true

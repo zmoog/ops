@@ -39,14 +39,21 @@ def environment(documents):
 
 
 class ChartTests(unittest.TestCase):
-    def test_bootstrap_is_default_and_does_not_need_a_discord_secret(self):
-        documents = render()
+    def test_bootstrap_is_base_default_and_does_not_need_a_discord_secret(self):
+        self.assertEqual(container(render(homelab=False))["args"], ["sleep", "infinity"])
+        documents = render({"mode": "bootstrap"})
         self.assertEqual(set(documents), {"Deployment", "PersistentVolumeClaim", "ExternalSecret"})
         process = container(documents)
         self.assertEqual(process["args"], ["sleep", "infinity"])
         self.assertNotIn("command", process)  # Keep the official image entrypoint.
         self.assertNotIn("DISCORD_BOT_TOKEN", environment(documents))
         self.assertNotIn("readinessProbe", process)
+
+    def test_homelab_gateway_uses_the_configured_owner(self):
+        documents = render()
+        self.assertEqual(container(documents)["args"], ["gateway", "run"])
+        self.assertEqual(environment(documents)["DISCORD_ALLOWED_USERS"]["value"], "472444297300541461")
+        self.assertIn("DISCORD_BOT_TOKEN", environment(documents))
 
     def test_base_chart_can_use_a_manually_provisioned_secret(self):
         documents = render(homelab=False)
