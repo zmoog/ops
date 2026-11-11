@@ -9,7 +9,7 @@ Kind cluster profile for LAN-hosted homelab services.
 - `ifq`
 - `home-telemetry-collector`
 - `looter`
-- `hermes` (starts in bootstrap mode; see [authentication and Discord setup](../../apps/hermes/README.md))
+- `hermes` (Discord gateway enabled after initial bootstrap; see [authentication and Discord setup](../../apps/hermes/README.md))
 
 These bootstrap commands are for a **new** cluster. Do not recreate an existing
 cluster to add Hermes; the root application discovers its child application.

@@ -6,6 +6,12 @@ port, host Docker socket, or Kubernetes API token is needed.
 
 ## Deployment model
 
+**Current homelab configuration:** gateway mode is enabled after successful
+ChatGPT/Codex authentication and minimal local tool setup. The base chart still
+defaults to bootstrap for fresh installations; the staged instructions below
+explain that initial setup. Do not copy the active homelab override onto a fresh,
+unauthenticated data volume without first setting `mode: bootstrap`.
+
 - Official `nousresearch/hermes-agent:v0.23.1`, pinned to a multi-architecture
   digest verified to include `linux/arm64`. The chart targets ARM64 Linux nodes.
 - One replica with `Recreate` updates; `/opt/data` is a writable `standard` PVC.
